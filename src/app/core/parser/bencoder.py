@@ -1,0 +1,3 @@
+def decode(bencoded_data: bytes):
+    if bencoded_data.startswith(b'd'):
+        ...
