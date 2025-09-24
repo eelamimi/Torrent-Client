@@ -13,4 +13,5 @@ if data.startswith(b'\xef\xbb\xbf'):
     data = data[3:]
 
 bencoder: Final[Bencoder] = Bencoder()
-print(bencoder.decode_file(data))
+decoded_data = list(bencoder.decode_file(data))
+print(decoded_data)

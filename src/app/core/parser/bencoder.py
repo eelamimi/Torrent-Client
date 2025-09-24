@@ -1,24 +1,23 @@
 class Bencoder:
     def decode_file(self, bencoded_data: bytes):
         ind = 0
-        decoded_metadata = []
 
         while ind < len(bencoded_data):
             char = chr(bencoded_data[ind])
             if char.isdigit():
-                string, append_index = self.decode_string(bencoded_data[ind:])
-                decoded_metadata.append(string)
-                ind += append_index
+                value, append_index = self.decode_string(bencoded_data[ind:])
             elif char == 'i':
-                integer, append_index = self.decode_integer(bencoded_data[ind:])
-                decoded_metadata.append(integer)
-                ind += append_index
+                value, append_index = self.decode_integer(bencoded_data[ind:])
             else:
                 raise Exception('file: Некорректный символ')
 
-        return decoded_metadata
+            ind += append_index
+            yield value
 
     def decode_string(self, bencoded_data: bytes) -> tuple[str, int]:
+        if 58 not in bencoded_data:
+            raise Exception('string: Нет :')
+
         length = ''
         ind = 0
 
