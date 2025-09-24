@@ -1,7 +1,9 @@
-from src.app.core.parser.bencoder import decode
+from typing import Final
+
+from src.app.core.parser.bencoder import Bencoder
 
 # считываем
-with open("../../samples/alice.torrent", "rb") as f:
+with open("../../samples/sample.torrent", "rb") as f:
     data = f.read()
 
 print(data)
@@ -10,7 +12,5 @@ print(data)
 if data.startswith(b'\xef\xbb\xbf'):
     data = data[3:]
 
-print(data)
-print(ord(b'd'))
-# обрабатываем .torrent
-decode(data)
+bencoder: Final[Bencoder] = Bencoder()
+print(bencoder.decode_file(data))
